@@ -1,28 +1,20 @@
 name: deploy
 on:
   workflow_call:
+    inputs:
+      env:
+        required: true
+        type: string
   workflow_dispatch:
 jobs:
-  publish-prod:
+  publish:
     runs-on: ubuntu-latest
-    if: "false"
+    if: inputs.env != 'production'
     steps:
       - uses: actions/checkout@v3
       - name: Setup Python
         uses: actions/setup-python@v4.5.0
       - name: Deploy
-        environment: production
-        run: |
-          pip install docker
-          python scripts/deploy.py
-  publish-dev:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup Python
-        uses: actions/setup-python@v4.5.0
-      - name: Deploy
-        environment: development
         run: |
           pip install docker
           python scripts/deploy.py

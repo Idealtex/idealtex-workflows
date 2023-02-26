@@ -117,7 +117,7 @@ jobs:
     - name: update release
       uses: dkalchenko/idealtex-workflows@latest
       with:
-        NEW_VERSION: ${{ steps.version.outputs.version }}
+        NEW_VERSION: ${{needs.tag.outputs.new_tag}}
         SERVICE_NAME: ${{ inputs.service_name }}
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         

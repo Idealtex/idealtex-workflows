@@ -13,7 +13,7 @@ secrets:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
+  env:
     NEW_VERSION: ${{ inputs.NEW_VERSION }}
     SERVICE_NAME: ${{ inputs.SERVICE_NAME }}
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

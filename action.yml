@@ -4,6 +4,7 @@ description: 'Idealtex-tools'
 inputs:
   NEW_VERSION:  
     description: 'version of service'
+    required: true
   SERVICE_NAME:  
     description: 'name of service'
     required: true

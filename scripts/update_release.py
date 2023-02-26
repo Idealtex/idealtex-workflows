@@ -5,9 +5,9 @@ import hashlib
 import base64
 
 try:
-    github_token = os.environ['GITHUB_TOKEN']
-    new_version = os.environ['NEW_VERSION']
-    service_name = os.environ['SERVICE_NAME']
+    github_token = os.environ['INPUT_GITHUB_TOKEN']
+    new_version = os.environ['INPUT_NEW_VERSION']
+    service_name = os.environ['INPUT_SERVICE_NAME']
 except KeyError as e:
     print(e + " should be defined")
 

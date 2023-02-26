@@ -1,7 +1,9 @@
 FROM python:3.8.16-slim
 
-COPY . .
+COPY . /app/
+
+WORKDIR /app
 
 RUN pip install -r requirements.txt
 
-ENTRYPOINT ["python", "scripts/update_release.py"]
+ENTRYPOINT ["python", "/app/scripts/update_release.py"]

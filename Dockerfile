@@ -4,4 +4,4 @@ COPY . .
 
 RUN pip install -r requirements.txt
 
-ENTRYPOINT ["python", "./scripts/update_release.py"]
+ENTRYPOINT ["python", "scripts/update_release.py"]

@@ -31,4 +31,4 @@ try:
 except yaml.YAMLError as exc:
     print(exc)
 
-github.get_repo("dkalchenko/idealtex-releases").update_file("releases.yaml", "fix: update " + service_name + " to " + new_version, encode_file, result.sha, "main")
+github.get_repo("dkalchenko/idealtex-releases").update_file("releases.yaml", "update " + service_name + " to " + new_version, encode_file, result.sha, "main")

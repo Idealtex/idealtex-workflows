@@ -119,6 +119,6 @@ jobs:
       with:
         NEW_VERSION: ${{ steps.version.outputs.version }}
         SERVICE_NAME: ${{ inputs.service_name }}
-        RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         
       

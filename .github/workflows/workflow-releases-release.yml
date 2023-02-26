@@ -2,7 +2,9 @@ name: release
 
 on:
   workflow_call:
-
+    secrets:
+      RELEASE_TOKEN:
+        required: true
   workflow_dispatch:
 jobs:
   validation:

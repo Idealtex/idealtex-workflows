@@ -1,0 +1,17 @@
+# action.yml
+name: 'idealtex-assistant'
+description: 'Idealtex-tools'
+inputs:
+  NEW_VERSION:  
+    description: 'version of service'
+  SERVICE_NAME:  
+    description: 'name of service'
+    required: true
+secrets:
+  GITHUB_TOKEN:
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.who-to-greet }}

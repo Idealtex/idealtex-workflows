@@ -7,7 +7,6 @@ inputs:
   SERVICE_NAME:  
     description: 'name of service'
     required: true
-secrets:
   GITHUB_TOKEN:
     required: true
 runs:
@@ -16,4 +15,4 @@ runs:
   env:
     NEW_VERSION: ${{ inputs.NEW_VERSION }}
     SERVICE_NAME: ${{ inputs.SERVICE_NAME }}
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}

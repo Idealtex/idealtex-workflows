@@ -103,7 +103,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: dkalchenko/idealtex-${{ inputs.service_name }}:${{needs.tag.outputs.new_tag}}
+          tags: dkalchenko2/idealtex-${{ inputs.service_name }}:${{needs.tag.outputs.new_tag}}
         
   release:
     needs: publish

@@ -11,8 +11,8 @@ try:
 except KeyError as e:
     print(e + " should be defined")
 
+print(new_version)
 github = Github(github_token)
-
 
 result = github.get_repo("dkalchenko/idealtex-releases").get_contents("releases.yaml")
 

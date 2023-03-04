@@ -11,7 +11,10 @@ try:
 except KeyError as e:
     print(e + " should be defined")
 
-print(new_version)
+
+if new_version == "" or new_version == None:
+    raise Exception("NEW_VERSION should contain version. NEW_VERSION:" + new_version)
+
 github = Github(github_token)
 
 result = github.get_repo("dkalchenko/idealtex-releases").get_contents("releases.yaml")

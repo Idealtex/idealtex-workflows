@@ -11,6 +11,18 @@ on:
       service_name:
         required: true
         type: string
+      build_csharp:
+        required: false
+        type: boolean
+        default: false
+      unit_tests:
+        required: false
+        type: boolean
+        default: false
+      integration_tests:
+        required: false
+        type: boolean
+        default: false
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -26,9 +38,11 @@ jobs:
         ref: ${{ github.head_ref }}   # checkout the correct branch name
         fetch-depth: 0                # fetch the whole repo history
     - uses: actions/setup-dotnet@v3
+      if: ${{inputs.build_csharp}}
       with:
         dotnet-version: '7.x.x'
     - name: Dotnet build 
+      if: ${{inputs.build_csharp}}
       run: dotnet build .
 
   unit:
@@ -41,6 +55,7 @@ jobs:
         ref: ${{ github.head_ref }}   # checkout the correct branch name
         fetch-depth: 0                # fetch the whole repo history
     - name: Unit test
+      if: ${{inputs.unit_tests}}
       run: docker compose -f compose-test.yaml up idealtex.${{ inputs.service_name }}.unittest
 
   integration:
@@ -53,4 +68,5 @@ jobs:
         ref: ${{ github.head_ref }}   # checkout the correct branch name
         fetch-depth: 0                # fetch the whole repo history
     - name: Integration test
+      if: ${{inputs.integration_tests}}
       run: docker compose -f compose-test.yaml up idealtex.${{ inputs.service_name }}.integrationtest

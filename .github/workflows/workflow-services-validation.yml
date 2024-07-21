@@ -6,12 +6,17 @@ name: Release
 # documentation.
 
 on:
+  concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
   workflow_call:
     inputs:
       service_name:
         required: true
         type: string
-
+  pull_request:
+    branches:
+      - '!main'
 
 jobs:
   build:

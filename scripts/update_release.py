@@ -28,6 +28,11 @@ try:
     release_content[service_name]["dev"] = new_version
 except KeyError as e:
     print(e + " is not defined in release")
+    
+try:
+    release_content[service_name]["prod"] = new_version
+except KeyError as e:
+    print(e + " is not defined in release")
 
 try:
     encode_file = yaml.safe_dump(release_content).encode('ascii')

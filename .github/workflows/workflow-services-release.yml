@@ -147,7 +147,5 @@ jobs:
           NEW_VERSION: ${{ needs.tag.outputs.new_tag }}
           SERVICE_NAME: ${{ inputs.service_name }}
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-        with:
-          entryPoint: update-release
         
       

@@ -133,19 +133,21 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
         
   release:
-    needs: [tag, publish]
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
-      with:
-        ref: ${{ github.head_ref }}   # checkout the correct branch name
-        fetch-depth: 0                # fetch the whole repo history
-    - name: update release
-      uses: dkalchenko/idealtex-workflows@main
-      with:
-        NEW_VERSION: ${{needs.tag.outputs.new_tag}}
-        SERVICE_NAME: ${{ inputs.service_name }}
-        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      needs: [tag, publish]
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - name: update release
+        uses: dkalchenko/idealtex-workflows@main
+        env:
+          NEW_VERSION: ${{ needs.tag.outputs.new_tag }}
+          SERVICE_NAME: ${{ inputs.service_name }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        with:
+          entryPoint: update-release
         
       

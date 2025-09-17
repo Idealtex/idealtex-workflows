@@ -135,6 +135,15 @@ jobs:
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      - name: Set extra envs
+        if: ${{ inputs.extra_envs != '' }}
+        run: |
+          echo "Parsing extra_envs: ${{ inputs.extra_envs }}"
+          IFS=',' read -ra PAIRS <<< "${{ inputs.extra_envs }}"
+          for pair in "${PAIRS[@]}"; do
+            echo "Exporting $pair"
+            echo "$pair" >> $GITHUB_ENV
+          done
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
@@ -142,15 +151,6 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{needs.tag.outputs.new_tag}}
           labels: ${{ steps.meta.outputs.labels }}
           # extra_envs is a comma-separated list of ENV=VALUE
-        - name: Set extra envs
-          if: ${{ inputs.extra_envs != '' }}
-          run: |
-            echo "Parsing extra_envs: ${{ inputs.extra_envs }}"
-            IFS=',' read -ra PAIRS <<< "${{ inputs.extra_envs }}"
-            for pair in "${PAIRS[@]}"; do
-              echo "Exporting $pair"
-              echo "$pair" >> $GITHUB_ENV
-            done
       
   publish_dev:
     needs: tag
@@ -172,6 +172,15 @@ jobs:
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_DEV }}
+      - name: Set extra envs
+        if: ${{ inputs.extra_envs_dev != '' && inputs.build_dev }}
+        run: |
+          echo "Parsing extra_envs_dev: ${{ inputs.extra_envs_dev }}"
+          IFS=',' read -ra PAIRS <<< "${{ inputs.extra_envs_dev }}"
+          for pair in "${PAIRS[@]}"; do
+            echo "Exporting $pair"
+            echo "$pair" >> $GITHUB_ENV
+          done
       - name: Build and push Docker image
         if: ${{inputs.build_dev}}
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
@@ -179,15 +188,6 @@ jobs:
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_DEV }}:${{needs.tag.outputs.new_tag}}
           labels: ${{ steps.meta.outputs.labels }}
-        - name: Set extra envs
-          if: ${{ inputs.extra_envs != '' && inputs.build_dev }}
-          run: |
-            echo "Parsing extra_envs: ${{ inputs.extra_envs }}"
-            IFS=',' read -ra PAIRS <<< "${{ inputs.extra_envs }}"
-            for pair in "${PAIRS[@]}"; do
-              echo "Exporting $pair"
-              echo "$pair" >> $GITHUB_ENV
-            done
         
   release:
       needs: [tag, publish, publish_dev]

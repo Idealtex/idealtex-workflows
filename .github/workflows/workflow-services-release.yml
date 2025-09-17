@@ -27,11 +27,14 @@ on:
         required: false
         type: boolean
         default: false
-        # Comma-separated list of ENV=VALUE pairs to set as environment variables in publish jobs
-        extra_envs:
-          required: false
-          type: string
-          default: ""
+      extra_envs:
+        required: false
+        type: string
+        default: ""
+      extra_envs_dev:
+        required: false
+        type: string
+        default: ""
     secrets:
       RELEASE_TOKEN:
         required: true

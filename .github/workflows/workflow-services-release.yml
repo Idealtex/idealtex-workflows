@@ -163,7 +163,7 @@ jobs:
         if: ${{inputs.build_dev}}
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
-          context: dockerfile_dev
+          context: ./dockerfile_dev
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_DEV }}:${{needs.tag.outputs.new_tag}}
           labels: ${{ steps.meta.outputs.labels }}

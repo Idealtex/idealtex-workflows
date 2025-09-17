@@ -133,11 +133,9 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
-          context: .
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{needs.tag.outputs.new_tag}}
           labels: ${{ steps.meta.outputs.labels }}
-          # extra_envs is a comma-separated list of ENV=VALUE
       
   publish_dev:
     needs: tag
@@ -163,8 +161,8 @@ jobs:
         if: ${{inputs.build_dev}}
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
-          context: ./dockerfile_dev
           push: true
+          file: dockerfile_dev
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_DEV }}:${{needs.tag.outputs.new_tag}}
           labels: ${{ steps.meta.outputs.labels }}
         

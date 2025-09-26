@@ -176,7 +176,7 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
       - name: update release
-        uses: dkalchenko/idealtex-workflows@main
+        uses: idealtex/idealtex-workflows@main
         env:
           NEW_VERSION: ${{ needs.tag.outputs.new_tag }}
           SERVICE_NAME: ${{ inputs.service_name }}
